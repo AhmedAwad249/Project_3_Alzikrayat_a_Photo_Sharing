@@ -4,8 +4,11 @@ import { api } from "../api";
 import { useAuth } from "../context/AuthContext";
 import PhotoGrid from "../components/PhotoGrid";
 import Status from "../components/Status";
-export default function Gallery({ mine = false }) {
+import ProfileCard from "../components/ProfileCard";
+export default function Gallery({ mine = false, owner = null }) {
   const { user } = useAuth();
+  const profile = mine ? user : owner;
+  const ownerId = profile?._id;
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -13,7 +16,10 @@ export default function Gallery({ mine = false }) {
   const [view, setView] = useState("three");
   useEffect(() => {
     let active = true;
-    api("/photos")
+    setLoading(true);
+    setError("");
+    setPhotos([]);
+    api(ownerId ? `/users/${ownerId}/photos` : "/photos")
       .then((data) => {
         if (active) setPhotos(data);
       })
@@ -26,23 +32,29 @@ export default function Gallery({ mine = false }) {
     return () => {
       active = false;
     };
-  }, []);
-  const visible = mine
-    ? photos.filter((photo) => photo.userId?._id === user?._id)
-    : photos;
+  }, [ownerId]);
+  const visible = photos;
   const sortedPhotos = order === "oldest" ? [...visible].reverse() : visible;
   return (
     <section className="gallery-page">
+      {profile && (
+        <ProfileCard
+          user={profile}
+          email={user?._id === profile._id ? user.email : ""}
+        />
+      )}
       <div className="page-intro intro-with-action">
         <div>
-          <h1>{mine ? "My photos" : "Our memories"}</h1>
-          <p className="muted">
-            {mine
-              ? "The stories you have shared."
-              : "Little moments, shared together."}
-          </p>
+          {profile ? (
+            <h2 className="my-photos-heading">{mine ? "My photos" : "Photos"}</h2>
+          ) : (
+            <>
+              <h1>Our memories</h1>
+              <p className="muted">Little moments, shared together.</p>
+            </>
+          )}
         </div>
-        {user && (
+        {user && (!profile || user._id === profile._id) && (
           <Link className="button button-dark" to="/upload">
             + Upload a photo
           </Link>

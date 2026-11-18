@@ -12,7 +12,9 @@ function likeStats(likedBy = [], userId) {
 }
 
 export async function getAll(req, res) {
-  const photos = await Photo.find()
+  const photos = await Photo.find(
+    req.params.id ? { userId: req.params.id } : {}
+  )
     .populate("userId", "firstName lastName")
     .select("+likedBy")
     .sort({ dateTime: -1, _id: -1 })

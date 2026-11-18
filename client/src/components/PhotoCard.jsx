@@ -17,7 +17,15 @@ export default function PhotoCard({ photo }) {
             <Link to={link}>{photo.title}</Link>
           </h3>
           <p>
-            By {fullName(photo.userId)} ? {dateLabel(photo.dateTime)}
+            By{" "}
+            {photo.userId ? (
+              <Link className="inline-link" to={`/users/${photo.userId._id}`}>
+                {fullName(photo.userId)}
+              </Link>
+            ) : (
+              fullName(photo.userId)
+            )}{" "}
+            &middot; {dateLabel(photo.dateTime)}
           </p>
         </div>
         <div className="photo-counts">

@@ -7,6 +7,8 @@ import LoginRegister from "./pages/LoginRegister";
 import Upload from "./pages/Upload";
 import PhotoDetail from "./pages/PhotoDetail";
 import About from "./pages/About";
+import People from "./pages/People";
+import Profile from "./pages/Profile";
 export default function App() {
   return (
     <>
@@ -20,6 +22,8 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/photos" element={<Gallery />} />
             <Route path="/photos/:id" element={<PhotoDetail />} />
+            <Route path="/users" element={<People />} />
+            <Route path="/users/:id" element={<Profile />} />
             <Route
               path="/my-photos"
               element={

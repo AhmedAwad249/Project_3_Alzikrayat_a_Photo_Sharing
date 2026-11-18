@@ -6,6 +6,7 @@ import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import authRoutes from "./routes/authRoutes.js";
 import photoRoutes from "./routes/photoRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import errorHandler from "./middleware/errorHandler.js";
 import { checkOrigin } from "./middleware/auth.js";
 import { uploadDirectory } from "./middleware/upload.js";
@@ -47,6 +48,7 @@ export function createApp() {
   app.get("/api/health", (req, res) => res.json({ status: "ok" }));
   app.use("/api/auth", authRoutes);
   app.use("/api/photos", photoRoutes);
+  app.use("/api/users", userRoutes);
   app.use("/api", (req, res) =>
     res.status(404).json({ message: "API route not found." })
   );

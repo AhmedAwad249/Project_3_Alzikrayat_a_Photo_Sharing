@@ -578,6 +578,13 @@ h3 {
 .profile-details h1 {
   margin: 0 0 3px;
   font-size: 28px;
+  overflow-wrap: anywhere;
+}
+.profile-back-link {
+  margin-top: 48px;
+}
+.profile-back-link + .gallery-page {
+  padding-top: 0;
 }
 .profile-email {
   margin: 0;

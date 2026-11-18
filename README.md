@@ -4,6 +4,7 @@ Ahmad Awad
 
 A website for sharing photos, made with React, Express, Node.js and MongoDB.
 Users can register, log in, upload photos, add comments and delete their own photos.
+The People page lists members. Each member has a profile with their details and photos.
 
 - `client`: website pages.
 - `server`: API and database code.

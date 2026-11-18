@@ -85,7 +85,18 @@ export default function PhotoDetail() {
                     {photo.userId?.firstName?.[0] || "?"}
                   </span>
                   <div>
-                    <strong>{fullName(photo.userId)}</strong>
+                    <strong>
+                      {photo.userId ? (
+                        <Link
+                          className="inline-link"
+                          to={`/users/${photo.userId._id}`}
+                        >
+                          {fullName(photo.userId)}
+                        </Link>
+                      ) : (
+                        fullName(photo.userId)
+                      )}
+                    </strong>
                     <time dateTime={photo.dateTime}>
                       {dateLabel(photo.dateTime)}
                     </time>
@@ -162,7 +173,18 @@ export default function PhotoDetail() {
                       </span>
                       <div>
                         <div className="comment-meta">
-                          <strong>{fullName(item.userId)}</strong>
+                          <strong>
+                            {item.userId ? (
+                              <Link
+                                className="inline-link"
+                                to={`/users/${item.userId._id}`}
+                              >
+                                {fullName(item.userId)}
+                              </Link>
+                            ) : (
+                              fullName(item.userId)
+                            )}
+                          </strong>
                           <time dateTime={item.dateTime}>
                             {dateLabel(item.dateTime)}
                           </time>

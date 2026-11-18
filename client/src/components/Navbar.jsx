@@ -26,6 +26,9 @@ export default function Navbar() {
           <NavLink className="nav-link" to="/photos">
             Gallery
           </NavLink>
+          <NavLink className="nav-link" to="/users">
+            People
+          </NavLink>
           <NavLink className="nav-link" to="/about">
             About
           </NavLink>
@@ -35,7 +38,11 @@ export default function Navbar() {
             <span>Loading...</span>
           ) : user ? (
             <>
-              <Link className="text-link account-link" to="/my-photos">
+              <Link
+                className="text-link account-link"
+                to="/my-photos"
+                title="My profile"
+              >
                 Hi, {user.firstName}
               </Link>
               <Link className="button button-dark nav-upload" to="/upload">
